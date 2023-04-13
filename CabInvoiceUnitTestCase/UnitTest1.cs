@@ -37,5 +37,14 @@ namespace CabInvoiceUnitTestCase
             InvoiceSummary expectedSummaery = new InvoiceSummary(60.0, 2);
             Assert.AreEqual(expectedSummaery, invoiceSummary);
         }
+        [Test]
+        public void GivenUserIdForMultipleRides_WhenProper_ShouldReturn_InvoiceSummary()
+        {
+            CabInvoiceGenerator repository = new CabInvoiceGenerator();
+            Ride[] ride = { new Ride(3.0, 5.0), new Ride(2.0, 5.0) };
+            repository.MapRidesToUser("somu", ride);
+            InvoiceSummary summary = repository.GetInvoiceSummary("somu");
+            Assert.AreEqual(summary.totalFare, 60.0);
+        }
     }
 }

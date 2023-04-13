@@ -26,9 +26,16 @@ namespace CabInvoiceUnitTestCase
         public void GivenDistanceAndTimeForMultipleRides_WhenProper_ShouldreturnAggregateFare()
         {
             Ride[] ride = { new Ride(3.0, 5.0), new Ride(2.0, 5.0) };
-            double invoiceSummary = this.cabInvoiceGenerator.GetMultipleRideFare(ride);
-            Assert.AreEqual(60.0, invoiceSummary);
-
+            InvoiceSummary invoiceSummary = this.cabInvoiceGenerator.GetMultipleRideFare(ride);
+            Assert.AreEqual(60.0, invoiceSummary.totalFare);
+        }
+        [Test]
+        public void GivenDistanceAndTimeForMultipleRides_WhenProper_ShouldreturInvoiceSummary()
+        {
+            Ride[] ride = { new Ride(3.0, 5.0), new Ride(2.0, 5.0) };
+            InvoiceSummary invoiceSummary = this.cabInvoiceGenerator.GetMultipleRideFare(ride);
+            InvoiceSummary expectedSummaery = new InvoiceSummary(60.0, 2);
+            Assert.AreEqual(expectedSummaery, invoiceSummary);
         }
     }
 }

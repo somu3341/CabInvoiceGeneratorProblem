@@ -46,5 +46,21 @@ namespace CabInvoiceUnitTestCase
             InvoiceSummary summary = repository.GetInvoiceSummary("somu");
             Assert.AreEqual(summary.totalFare, 60.0);
         }
+        [Test]
+        public void GivenRideOptionPremium_WhenProper_ShouldReturn_InvoiceSummary()
+        {
+            RideOption rideOption = new RideOption();
+            RideOption result = rideOption.SetRideValue(RideOption.RideTypes.PREMIUM);
+            double fare = this.cabInvoiceGenerator.CalculateFare(result.costPerKms, result.costPerMinute, result.minimumFare, 3.0, 2.0);
+            Assert.AreEqual(fare, 49.0);
+        }
+        [Test]
+        public void GivenRideOptionNormal_WhenProper_ShouldReturn_InvoiceSummary()
+        {
+            RideOption rideOption = new RideOption();
+            RideOption result = rideOption.SetRideValue(RideOption.RideTypes.NORMAL);
+            double fare = this.cabInvoiceGenerator.CalculateFare(result.costPerKms, result.costPerMinute, result.minimumFare, 3.0, 2.0);
+            Assert.AreEqual(fare, 32.0);
+        }
     }
 }
